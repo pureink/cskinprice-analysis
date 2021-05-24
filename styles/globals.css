@@ -1,0 +1,38 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  text-align: center;
+}
+.chart {
+  box-shadow: rgb(188, 82, 64) -1.2rem 1.2rem 0px 0px;
+  border-top-width: 6px;
+  border-right-width: 6px;
+  border-bottom-width: 6px;
+  border-left-width: 6px;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-top-color: rgb(83, 31, 23);
+  border-right-color: rgb(83, 31, 23);
+  border-bottom-color: rgb(83, 31, 23);
+  border-left-color: rgb(83, 31, 23);
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-width: initial;
+  border-image-outset: initial;
+  border-image-repeat: initial;
+  padding-top: 2rem;
+}
