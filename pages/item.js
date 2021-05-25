@@ -42,59 +42,43 @@ function steamchart(data) {
       <>
         <Text fontSize="20px">近期交易次数</Text>
         <Box maxW="480px" mx="auto">
-        <Tabs px="5" my="4" mx="auto" defaultIndex={1} align="end">
-          <TabPanels>
-            <TabPanel>
-              <VictoryChart
-                width={400}
-                height={300}
-                domainPadding={10}
-                theme={VictoryTheme.material}
-              >
-                <VictoryBar
-                  style={{ data: { fill: "rgb(210,47,39)" } }}
-                  data={getdata(data.price, 7)}
-                  labels={({ datum }) =>
-                    `${new Date(datum.x).toDateString()}有${datum.y}个订单`
-                  }
-                  labelComponent={
-                    <VictoryTooltip
-                      center={{ x: 225, y: 30 }}
-                      pointerOrientation="bottom"
-                      flyoutWidth={150}
-                      flyoutHeight={50}
-                      pointerWidth={150}
-                      cornerRadius={0}
-                    />
-                  }
-                />
-              </VictoryChart>
-            </TabPanel>
-            <TabPanel>
-              <VictoryChart width={400} height={300} domainPadding={10}>
-                <VictoryBar
-                  style={{ data: { fill: "rgb(210,47,39)" } }}
-                  data={getdata(data.price, 30)}
-                  labels={({ datum }) =>
-                    `${new Date(datum.x).toDateString()}有${datum.y}个订单`
-                  }
-                  labelComponent={
-                    <VictoryTooltip
-                      flyoutWidth={150}
-                      flyoutHeight={50}
-                      pointerWidth={150}
-                      cornerRadius={5}
-                    />
-                  }
-                />
-              </VictoryChart>
-            </TabPanel>
-          </TabPanels>
-          <TabList>
-            <Tab>周</Tab>
-            <Tab>月</Tab>
-          </TabList>
-        </Tabs>
+          <Tabs px="5" my="4" mx="auto" defaultIndex={1} align="end">
+            <TabPanels>
+              <TabPanel>
+                <VictoryChart
+                  width={400}
+                  height={300}
+                  domainPadding={10}
+                  theme={VictoryTheme.material}
+                >
+                  <VictoryBar
+                    style={{ data: { fill: "rgb(210,47,39)" } }}
+                    data={getdata(data.price, 7)}
+                    labels={({ datum }) =>
+                      `${new Date(datum.x).toDateString()}有${datum.y}个订单`
+                    }
+                    labelComponent={<VictoryTooltip />}
+                  />
+                </VictoryChart>
+              </TabPanel>
+              <TabPanel>
+                <VictoryChart width={400} height={300} domainPadding={10}>
+                  <VictoryBar
+                    style={{ data: { fill: "rgb(210,47,39)" } }}
+                    data={getdata(data.price, 30)}
+                    labels={({ datum }) =>
+                      `${new Date(datum.x).toDateString()}有${datum.y}个订单`
+                    }
+                    labelComponent={<VictoryTooltip />}
+                  />
+                </VictoryChart>
+              </TabPanel>
+            </TabPanels>
+            <TabList>
+              <Tab>周</Tab>
+              <Tab>月</Tab>
+            </TabList>
+          </Tabs>
         </Box>
         <Text m="4" fontSize="20px">
           steam历史价格总览

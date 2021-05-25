@@ -1,4 +1,4 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Box, Flex, Image,Link } from "@chakra-ui/react";
 import { Input, Text } from "@chakra-ui/react";
 import Fuse from "fuse.js";
 import { useState } from "react";
@@ -8,7 +8,7 @@ import {
   VictoryTheme,
   VictoryTooltip,
 } from "victory";
-
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 //主页提供搜索功能，在mongodb中搜索，在列表中展示搜索到的物品id
 //在连接到服务器时获取所有的物品列表，使用fuse.JS进行搜索
 function parse_price(str) {
@@ -110,7 +110,7 @@ export default function Home(props) {
                     height="100"
                     src={"https://" + item.item.igxe.img}
                   />
-                  <a href={`/item?id=${item.item._id}`}>{item.item._id}</a>
+                  <Link href={`/item?id=${item.item._id}`}>{item.item._id}<ExternalLinkIcon mx="2px"/></Link>
                   <Text>{item.item.igxe.current_price}</Text>
                   <Flex justify="space-around">
                     {item.item.igxe ? (
