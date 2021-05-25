@@ -31,12 +31,16 @@ export default function Home(props) {
         parse_price(a.igxe.current_price) != 0
     )
     .sort((a, b) => gd(b) - gd(a))
-    .slice(0, 10);
+    .slice(0, 5);
   let sortobj = [];
   for (let i = 0; i < sortitem.length; i++) {
-    sortobj.push({ y: gd(sortitem[i]),top:i,name: sortitem[i].type+"|"+sortitem[i].color,skin:sortitem[i].mosun});
+    sortobj.push({
+      y: gd(sortitem[i]),
+      top: `no.${i+1}`,
+      name: sortitem[i].type + "|" + sortitem[i].color,
+      skin: sortitem[i].mosun,
+    });
   }
-  console.log(sortobj);
   let DUPLICATE = 0;
   const [searchValue, setSearchValue] = useState("");
   const options = {
@@ -54,21 +58,26 @@ export default function Home(props) {
   const items = fuse.search(pattern);
   return (
     <>
-      <Text textAlign="center" my="4">
-        没想到吧，这里可以搜索奥🔍
+      <Text textAlign="center" my="10" fontSize="20px">
+        挂刀排行榜
       </Text>
       <Box w="360px" mx="auto">
-        <VictoryChart theme={VictoryTheme.material} domainPadding={5}>
+        <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
           <VictoryBar
-            labels={({ datum }) => `${datum.name} \n${datum.skin} \n rate:${datum.y.toPrecision(4)}`}
+            labels={({ datum }) =>
+              `${datum.name} \n${datum.skin} \n rate:${datum.y.toPrecision(4)}`
+            }
             x="top"
             y="y"
             labelComponent={<VictoryTooltip theme={VictoryTheme.material} />}
-            style={{ data: { fill: "#c43a31" } }}
+            style={{ data: { fill: "rgb(116,89,155)" } }}
             data={sortobj}
           />
         </VictoryChart>
       </Box>
+      <Text textAlign="center" my="4">
+        搜索🔍
+      </Text>
       <Box maxW="960px" mx="auto" w="80%">
         <Input
           size="lg"

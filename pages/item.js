@@ -1,7 +1,7 @@
 import Chart from "../components/chart";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 import { useRouter } from "next/router";
-import { Box, Text, Image } from "@chakra-ui/react";
+import { Box, Text, Image, Flex } from "@chakra-ui/react";
 import useSWR from "swr";
 import Loading from "../components/loading";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
@@ -41,7 +41,8 @@ function steamchart(data) {
     return (
       <>
         <Text fontSize="20px">近期交易次数</Text>
-        <Tabs px="5"my="4" mx="auto" defaultIndex={1} align="end">
+        <Box maxW="480px" mx="auto">
+        <Tabs px="5" my="4" mx="auto" defaultIndex={1} align="end">
           <TabPanels>
             <TabPanel>
               <VictoryChart
@@ -51,7 +52,7 @@ function steamchart(data) {
                 theme={VictoryTheme.material}
               >
                 <VictoryBar
-                  style={{ data: { fill: "#c43a31" } }}
+                  style={{ data: { fill: "rgb(210,47,39)" } }}
                   data={getdata(data.price, 7)}
                   labels={({ datum }) =>
                     `${new Date(datum.x).toDateString()}有${datum.y}个订单`
@@ -72,7 +73,7 @@ function steamchart(data) {
             <TabPanel>
               <VictoryChart width={400} height={300} domainPadding={10}>
                 <VictoryBar
-                  style={{ data: { fill: "#c43a31" } }}
+                  style={{ data: { fill: "rgb(210,47,39)" } }}
                   data={getdata(data.price, 30)}
                   labels={({ datum }) =>
                     `${new Date(datum.x).toDateString()}有${datum.y}个订单`
@@ -94,6 +95,7 @@ function steamchart(data) {
             <Tab>月</Tab>
           </TabList>
         </Tabs>
+        </Box>
         <Text m="4" fontSize="20px">
           steam历史价格总览
         </Text>
@@ -120,20 +122,42 @@ export default function Item() {
   } else {
     const info = data.knifes[0];
     let piedata = [];
+    let c5_price = "unknown";
+    let ig_price = "unknown";
+    let steam_price = "unknown";
+
     if (info.igxe) {
       piedata.push({ x: "igxe", y: info.igxe.num });
+      ig_price = info.igxe.current_price;
     }
     if (info.c5) {
       piedata.push({ x: "c5", y: info.c5game.num });
+      c5_price = info.c5game.current_price;
     }
     if (info.steam) {
       piedata.push({ x: "steam", y: info.steam.num });
+      steam_price = info.steam.current_price;
     }
+
     return (
       <>
-        <Box mx="auto" w="500px"maxW="100%" my="10">
+        <Box mx="auto" w="500px" maxW="100%" my="10">
           <Text textAlign="center">{info._id}</Text>
           <Image mx="auto" w="150px" src={"https://" + info.igxe.img} />
+          <Flex direction="column" my="10">
+            <Flex justify="center">
+              <Image borderRadius="5" w="25px" src="/igxe.png" m="2" />
+              igxe价格：{ig_price}
+            </Flex>
+            <Flex justify="center">
+              <Image borderRadius="5" w="25px" src="/c5.jpg" m="2" />
+              c5game价格：{c5_price}
+            </Flex>
+            <Flex justify="center">
+              <Image borderRadius="5" w="25px" src="/steam.png" m="2" />
+              steam价格：{steam_price}
+            </Flex>
+          </Flex>
         </Box>
         <Box w="300px" mx="auto">
           <VictoryPie
