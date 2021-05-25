@@ -12,6 +12,12 @@ import {
   VictoryTheme,
   VictoryTooltip,
 } from "victory";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+} from "@chakra-ui/react";
 
 function getdata(arr, time) {
   let i = arr.length - 1;
@@ -96,6 +102,9 @@ function steamchart(data) {
     );
   }
 }
+function randomcolor(){
+  return '#' + (Math.floor(Math.random() * 2 ** 24)).toString(16).padStart(0, 6)
+}
 export default function Item() {
   const router = useRouter();
   const path = router.query.id;
@@ -125,8 +134,23 @@ export default function Item() {
 
     return (
       <>
+        <Breadcrumb mx="10" mt="10">
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="#">{data.knifes[0]._id}</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
         <Box mx="auto" w="500px" maxW="100%" my="10">
-          <Text textAlign="center">{info._id}</Text>
+          <Text
+            bgGradient={`linear(to-l, ${randomcolor()},${randomcolor()})`}
+            bgClip="text"
+            fontSize="2xl"
+            fontWeight="bold"
+          >
+            {info._id}
+          </Text>
           <Image mx="auto" w="150px" src={"https://" + info.igxe.img} />
           <Flex direction="column" my="10">
             <Flex justify="center">

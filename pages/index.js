@@ -1,4 +1,4 @@
-import { Box, Flex, Image,Link } from "@chakra-ui/react";
+import { Box, Flex, Image, Link } from "@chakra-ui/react";
 import { Input, Text } from "@chakra-ui/react";
 import Fuse from "fuse.js";
 import { useState } from "react";
@@ -8,7 +8,14 @@ import {
   VictoryTheme,
   VictoryTooltip,
 } from "victory";
-import { ExternalLinkIcon } from '@chakra-ui/icons'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+} from "@chakra-ui/react";
+
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 //主页提供搜索功能，在mongodb中搜索，在列表中展示搜索到的物品id
 //在连接到服务器时获取所有的物品列表，使用fuse.JS进行搜索
 function parse_price(str) {
@@ -36,7 +43,7 @@ export default function Home(props) {
   for (let i = 0; i < sortitem.length; i++) {
     sortobj.push({
       y: gd(sortitem[i]),
-      top: `no.${i+1}`,
+      top: `no.${i + 1}`,
       name: sortitem[i].type + "|" + sortitem[i].color,
       skin: sortitem[i].mosun,
     });
@@ -58,11 +65,24 @@ export default function Home(props) {
   const items = fuse.search(pattern);
   return (
     <>
+      <Text
+        bgGradient="linear(to-l, #7928CA,#FF0080)"
+        bgClip="text"
+        fontSize="6xl"
+        fontWeight="extrabold"
+      >
+        Welcome to CSkin
+      </Text>
+      <Breadcrumb mx="10">
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
       <Text textAlign="center" my="10" fontSize="20px">
         挂刀排行榜
       </Text>
       <Box w="360px" mx="auto">
-        <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
+        <VictoryChart height={350} domainPadding={10}>
           <VictoryBar
             labels={({ datum }) =>
               `${datum.name} \n${datum.skin} \n rate:${datum.y.toPrecision(4)}`
@@ -110,7 +130,10 @@ export default function Home(props) {
                     height="100"
                     src={"https://" + item.item.igxe.img}
                   />
-                  <Link href={`/item?id=${item.item._id}`}>{item.item._id}<ExternalLinkIcon mx="2px"/></Link>
+                  <Link href={`/item?id=${item.item._id}`}>
+                    {item.item._id}
+                    <ExternalLinkIcon mx="2px" />
+                  </Link>
                   <Text>{item.item.igxe.current_price}</Text>
                   <Flex justify="space-around">
                     {item.item.igxe ? (

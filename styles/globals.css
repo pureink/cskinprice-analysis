@@ -36,3 +36,6 @@ a {
   border-image-repeat: initial;
   padding-top: 2rem;
 }
+.chakra-breadcrumb__list{
+  text-align: left;
+}
