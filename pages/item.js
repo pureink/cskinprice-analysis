@@ -8,9 +8,11 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import {
   VictoryChart,
   VictoryBar,
+  VictoryPie,
   VictoryTheme,
   VictoryTooltip,
 } from "victory";
+
 function getdata(arr, time) {
   let i = arr.length - 1;
   const now = new Date();
@@ -117,11 +119,31 @@ export default function Item() {
     return <Loading />;
   } else {
     const info = data.knifes[0];
+    let piedata = [];
+    if (info.igxe) {
+      piedata.push({ x: "igxe", y: info.igxe.num });
+    }
+    if (info.c5) {
+      piedata.push({ x: "c5", y: info.c5game.num });
+    }
+    if (info.steam) {
+      piedata.push({ x: "steam", y: info.steam.num });
+    }
     return (
       <>
         <Box w="500px" mx="auto" my="10">
           <Text textAlign="center">{info._id}</Text>
           <Image mx="auto" w="150px" src={"https://" + info.igxe.img} />
+        </Box>
+        <Box w="300px" mx="auto">
+          <VictoryPie
+            colorScale={["tomato", "orange", "gold", "cyan", "navy"]}
+            style={{ labels: { fill: "white" } }}
+            innerRadius={70}
+            labelRadius={95}
+            labels={({ datum }) => `${datum.x}\n 在售${datum.y}`}
+            data={piedata}
+          />
         </Box>
         {steamchart(data)}
       </>

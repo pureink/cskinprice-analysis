@@ -1,12 +1,42 @@
 import { Box, Flex, Image } from "@chakra-ui/react";
 import { Input, Text } from "@chakra-ui/react";
 import Fuse from "fuse.js";
-import useSWR from "swr";
 import { useState } from "react";
+import {
+  VictoryChart,
+  VictoryBar,
+  VictoryTheme,
+  VictoryTooltip,
+} from "victory";
+
 //主页提供搜索功能，在mongodb中搜索，在列表中展示搜索到的物品id
 //在连接到服务器时获取所有的物品列表，使用fuse.JS进行搜索
+function parse_price(str) {
+  if (str != undefined) return parseInt(str.substring(1), 10);
+  return 0;
+}
+function gd(o) {
+  return (
+    (5.466 * parse_price(o.steam.current_price)) /
+    parse_price(o.igxe.current_price)
+  );
+}
 export default function Home(props) {
   const items_origin = props.items_origin;
+  const sortitem = items_origin.knifes
+    .filter(
+      (a) =>
+        a.steam != undefined &&
+        a.igxe != undefined &&
+        parse_price(a.igxe.current_price) != 0
+    )
+    .sort((a, b) => gd(b) - gd(a))
+    .slice(0, 10);
+  let sortobj = [];
+  for (let i = 0; i < sortitem.length; i++) {
+    sortobj.push({ y: gd(sortitem[i]),top:i,name: sortitem[i].type+"|"+sortitem[i].color,skin:sortitem[i].mosun});
+  }
+  console.log(sortobj);
   let DUPLICATE = 0;
   const [searchValue, setSearchValue] = useState("");
   const options = {
@@ -27,6 +57,18 @@ export default function Home(props) {
       <Text textAlign="center" my="4">
         没想到吧，这里可以搜索奥🔍
       </Text>
+      <Box w="360px" mx="auto">
+        <VictoryChart theme={VictoryTheme.material} domainPadding={5}>
+          <VictoryBar
+            labels={({ datum }) => `${datum.name} \n${datum.skin} \n rate:${datum.y.toPrecision(4)}`}
+            x="top"
+            y="y"
+            labelComponent={<VictoryTooltip theme={VictoryTheme.material} />}
+            style={{ data: { fill: "#c43a31" } }}
+            data={sortobj}
+          />
+        </VictoryChart>
+      </Box>
       <Box maxW="960px" mx="auto" w="80%">
         <Input
           size="lg"
@@ -77,7 +119,7 @@ export default function Home(props) {
                           />
                         </a>
 
-                        <Text lineHeight="1" fontSize="2">
+                        <Text lineHeight="1" fontSize="8">
                           {item.item.igxe.num}件
                         </Text>
                       </Flex>
@@ -87,7 +129,11 @@ export default function Home(props) {
                         <Text lineHeight="1" fontSize="8">
                           c5
                         </Text>
-                        <a href={"https://www.c5game.com" + item.item.c5game.href}>
+                        <a
+                          href={
+                            "https://www.c5game.com" + item.item.c5game.href
+                          }
+                        >
                           <Image
                             my="1"
                             w="5"
@@ -96,7 +142,7 @@ export default function Home(props) {
                             borderRadius="5"
                           />
                         </a>
-                        <Text lineHeight="1" fontSize="2">
+                        <Text lineHeight="1" fontSize="8">
                           {item.item.c5game.num}件
                         </Text>
                       </Flex>
@@ -106,7 +152,7 @@ export default function Home(props) {
                         <Text lineHeight="1" fontSize="8">
                           steam
                         </Text>
-                        <a href={ item.item.steam.href.substring(6)}>
+                        <a href={item.item.steam.href.substring(6)}>
                           <Image
                             my="1"
                             w="5"
@@ -115,7 +161,7 @@ export default function Home(props) {
                             borderRadius="5"
                           />
                         </a>
-                        <Text lineHeight="1" fontSize="2">
+                        <Text lineHeight="1" fontSize="8">
                           {item.item.steam.num}件
                         </Text>
                       </Flex>

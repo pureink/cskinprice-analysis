@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
   // Select the users collection from the database
   const knifes = await collection.find({ _id: id }).toArray();
   var price;
-  if (knifes[0].steam!= undefined) {
+  if (knifes[0].hasOwnProperty("steam")) {
     const resp = await fetch(
       "http://api.scraperapi.com/?api_key=bd34bcd86583b46c76dc5c9c24c5af26&url=" +
         knifes[0].steam.href.substring(6)

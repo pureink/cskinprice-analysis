@@ -52,14 +52,6 @@ function Chart({ data1, data2 }) {
           x="date"
           y="price"
         />
-        <VictoryLine
-          style={{
-            data: { stroke: "orange" },
-          }}
-          data={o2}
-          x="date"
-          y="price"
-        />
       </VictoryChart>
       <VictoryChart
         padding={{ top: 0, left: 0, right: 0, bottom: 30 }}
@@ -80,14 +72,6 @@ function Chart({ data1, data2 }) {
             data: { stroke: "tomato" },
           }}
           data={o}
-          x="date"
-          y="price"
-        />
-        <VictoryLine
-          style={{
-            data: { stroke: "orange" },
-          }}
-          data={o2}
           x="date"
           y="price"
         />
