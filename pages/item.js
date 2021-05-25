@@ -41,12 +41,12 @@ function steamchart(data) {
     return (
       <>
         <Text fontSize="20px">近期交易次数</Text>
-        <Tabs my="4" mx="auto" defaultIndex={1} align="end" width="500px">
+        <Tabs px="5"my="4" mx="auto" defaultIndex={1} align="end">
           <TabPanels>
             <TabPanel>
               <VictoryChart
                 width={400}
-                height={200}
+                height={300}
                 domainPadding={10}
                 theme={VictoryTheme.material}
               >
@@ -70,7 +70,7 @@ function steamchart(data) {
               </VictoryChart>
             </TabPanel>
             <TabPanel>
-              <VictoryChart width={400} height={200} domainPadding={10}>
+              <VictoryChart width={400} height={300} domainPadding={10}>
                 <VictoryBar
                   style={{ data: { fill: "#c43a31" } }}
                   data={getdata(data.price, 30)}
@@ -97,7 +97,7 @@ function steamchart(data) {
         <Text m="4" fontSize="20px">
           steam历史价格总览
         </Text>
-        <Box className="chart" w="480px" mx="auto">
+        <Box className="chart" w="80%" maxW="480px" mx="auto">
           <Chart data1={price} data2={price} />
         </Box>
       </>
@@ -131,7 +131,7 @@ export default function Item() {
     }
     return (
       <>
-        <Box w="500px" mx="auto" my="10">
+        <Box mx="auto" w="500px"maxW="100%" my="10">
           <Text textAlign="center">{info._id}</Text>
           <Image mx="auto" w="150px" src={"https://" + info.igxe.img} />
         </Box>
