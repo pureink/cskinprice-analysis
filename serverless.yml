@@ -1,0 +1,15 @@
+component: nextjs
+name: nextjsDemo
+app: appDemo
+
+inputs:
+  src:
+    dist: ./
+    hook: npm run build
+  region: ap-guangzhou
+  runtime: Nodejs12.16
+  apigatewayConf:
+    protocols:
+      - http
+      - https
+    environment: release
