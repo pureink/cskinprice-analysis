@@ -4,3 +4,4 @@ web/.next
 web/.env
 web/out
 .DS_Store
+spider/.idea
