@@ -3,4 +3,5 @@ next.config.js
 web/.next
 web/.env
 web/out
-DS_Store
+.DS_Store
+spider/.idea
