@@ -5,3 +5,4 @@ web/.env
 web/out
 .DS_Store
 spider/.idea
+web/.DS_Store
