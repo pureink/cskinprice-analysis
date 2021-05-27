@@ -14,19 +14,11 @@ function Chart({ data1, data2 }) {
   });
 
   const arr = data1;
-  const arr2 = data2;
   let o = [];
   for (let i = 0; i < arr.length; i++) {
     o.push({
       date: new Date(arr[i][0]),
       price: arr[i][1],
-    });
-  }
-  let o2 = [];
-  for (let i = 0; i < arr2.length; i++) {
-    o2.push({
-      date: new Date(arr2[i][0]),
-      price: arr2[i][1],
     });
   }
   return (
