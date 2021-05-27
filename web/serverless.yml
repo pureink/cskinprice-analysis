@@ -6,7 +6,7 @@ inputs:
   src:
     dist: ./
     hook: npm run build
-  region: ap-guangzhou
+  region: ap-beijing
   runtime: Nodejs12.16
   apigatewayConf:
     protocols:

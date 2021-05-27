@@ -1,6 +1,7 @@
 import { Box, Flex, Image, Link } from "@chakra-ui/react";
 import { Input, Text } from "@chakra-ui/react";
 import Fuse from "fuse.js";
+import { Animated } from "react-animated-css";
 import { useState } from "react";
 import {
   VictoryChart,
@@ -25,7 +26,8 @@ function parse_price(str) {
 }
 function gd(o) {
   return (
-    (5.466 * parse_price(o.steam.current_price) - parse_price(o.igxe.current_price)) /
+    (5.466 * parse_price(o.steam.current_price) -
+      parse_price(o.igxe.current_price)) /
     parse_price(o.igxe.current_price)
   );
 }
@@ -68,14 +70,16 @@ export default function Home() {
     const items = fuse.search(pattern);
     return (
       <>
-        <Text
-          bgGradient="linear(to-l, #7928CA,#FF0080)"
-          bgClip="text"
-          fontSize="6xl"
-          fontWeight="extrabold"
-        >
-          Welcome to CSkin
-        </Text>
+        <Animated animationIn="bounceInDown">
+          <Text
+            bgGradient="linear(to-l, #7928CA,#FF0080)"
+            bgClip="text"
+            fontSize="6xl"
+            fontWeight="extrabold"
+          >
+            Welcome to CSkin
+          </Text>
+        </Animated>
         <Breadcrumb mx="10">
           <BreadcrumbItem>
             <BreadcrumbLink href="/">Home</BreadcrumbLink>
@@ -100,8 +104,8 @@ export default function Home() {
             />
           </VictoryChart>
         </Box>
-        <Text textAlign="center" my="4">
-          搜索🔍
+        <Text textAlign="center" my="4" fontSize="18">
+          搜点什么🔍
         </Text>
         <Box maxW="960px" mx="auto" w="80%">
           <Input
@@ -130,13 +134,14 @@ export default function Home() {
                     m="2"
                     borderRadius="5"
                   >
-                    <Image
-                      mx="auto"
-                      width="100"
-                      height="100"
-                      src={"https://" + item.item.igxe.img}
-                    />
                     <Link href={`/item?id=${item.item._id}`}>
+                      <Image
+                        mx="auto"
+                        width="100"
+                        height="100"
+                        src={"https://" + item.item.igxe.img}
+                      />
+
                       {item.item._id}
                       <ExternalLinkIcon mx="2px" />
                     </Link>
@@ -144,7 +149,7 @@ export default function Home() {
                     <Flex justify="space-around">
                       {item.item.igxe ? (
                         <Flex direction="column" w="40px">
-                          <Text lineHeight="1" fontSize="8">
+                          <Text lineHeight="1" fontSize="10">
                             igxe
                           </Text>
                           <a href={"https://www.igxe.cn" + item.item.igxe.href}>
@@ -157,14 +162,14 @@ export default function Home() {
                             />
                           </a>
 
-                          <Text lineHeight="1" fontSize="8">
+                          <Text lineHeight="1" fontSize="10">
                             {item.item.igxe.num}件
                           </Text>
                         </Flex>
                       ) : null}
                       {item.item.c5game ? (
                         <Flex direction="column" w="42px">
-                          <Text lineHeight="1" fontSize="8">
+                          <Text lineHeight="1" fontSize="10">
                             c5
                           </Text>
                           <a
@@ -180,14 +185,14 @@ export default function Home() {
                               borderRadius="5"
                             />
                           </a>
-                          <Text lineHeight="1" fontSize="8">
+                          <Text lineHeight="1" fontSize="10">
                             {item.item.c5game.num}件
                           </Text>
                         </Flex>
                       ) : null}
                       {item.item.steam ? (
                         <Flex direction="column" w="40px">
-                          <Text lineHeight="1" fontSize="8">
+                          <Text lineHeight="1" fontSize="10">
                             steam
                           </Text>
                           <a href={item.item.steam.href.substring(6)}>
@@ -199,7 +204,7 @@ export default function Home() {
                               borderRadius="5"
                             />
                           </a>
-                          <Text lineHeight="1" fontSize="8">
+                          <Text lineHeight="1" fontSize="10">
                             {item.item.steam.num}件
                           </Text>
                         </Flex>

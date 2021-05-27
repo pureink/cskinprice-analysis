@@ -1,3 +1,6 @@
-node_modules
+web/node_modules
 next.config.js
-.next
+web/.next
+web/.env
+web/out
+.DS_Store

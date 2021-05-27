@@ -15,7 +15,10 @@ async function connectToDatabase(uri) {
   }
 
   // If no connection is cached, create a new one
-  const client = await MongoClient.connect(uri, { useNewUrlParser: true });
+  const client = await MongoClient.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
   // Select the database through the connection,
   // using the database path of the connection string
@@ -40,8 +43,8 @@ module.exports = async (req, res) => {
   const collection = await db.collection("knife");
 
   // Select the users collection from the database
-  const knifes = await collection.find({}).project({"igxe.prices":0}).toArray();
-
+  const knifes = await collection.find({ _id: id }).toArray();
+ 
   // Respond with a JSON string of all users in the collection
-  res.status(200).json({ knifes });
+  res.status(200).json({ knifes});
 };

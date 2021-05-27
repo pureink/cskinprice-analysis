@@ -11,6 +11,7 @@ import {
   VictoryBar,
   VictoryPie,
   VictoryTheme,
+  VictoryLabel,
   VictoryTooltip,
   VictoryGroup,
   VictoryArea,
@@ -144,6 +145,17 @@ export default function Item() {
   if (!data || !data.knifes[0]) {
     return <Loading />;
   } else {
+    var price;
+    if (data.knifes[0].hasOwnProperty("steam")) {
+      const {data:pricetext} = useSWR(
+        "http://api.scraperapi.com/?api_key=bd34bcd86583b46c76dc5c9c24c5af26&url=" +
+          data.knifes[0].steam.href.substring(6)
+      );
+      price = pricetext.match(/\[\[(.*)\]\]/g)[0];
+    } else {
+      price = null;
+    }
+    console.log(price)
     const info = data.knifes[0];
     let piedata = [];
     let c5_price = "unknown";
@@ -166,7 +178,7 @@ export default function Item() {
       igchart = (
         <VictoryArea
           style={{
-            data: { fill: "cyan", stroke: "cyan" },
+            data: { fill: "rgb(29,74,138)", stroke: "rgb(29,74,138)" },
           }}
           data={igdata}
         />
@@ -185,7 +197,7 @@ export default function Item() {
       c5chart = (
         <VictoryArea
           style={{
-            data: { fill: "cyan", stroke: "rgb(245,217,101)" },
+            data: { fill: "rgb(14,43,94)", stroke: "rgb(14,43,94)" },
           }}
           data={c5data}
         />
@@ -198,13 +210,13 @@ export default function Item() {
       for (let i = 0; i < info.steam.prices.length; i++) {
         steamdata.push({
           x: new Date(info.steam.prices[i].date.replace(", ", "T")),
-          y: 6.43*parseInt(info.steam.prices[i].price.substring(1)),
+          y: 0.85*6.43 * parseInt(info.steam.prices[i].price.substring(1)),
         });
       }
       steamchart = (
         <VictoryArea
           style={{
-            data: { fill: "magenta", stroke: "magenta" },
+            data: { fill: "rgb(45,105,194)", stroke: "rgb(45,105,194)" },
           }}
           data={steamdata}
         />
@@ -245,28 +257,48 @@ export default function Item() {
             </Flex>
           </Flex>
         </Box>
-        <Box w="360px" mx="auto">
-        <VictoryChart width={400} height={400}>
-          <VictoryGroup
-            style={{
-              data: { strokeWidth: 1, fillOpacity: 0.03 },
-            }}
-          >
-            {igchart}
-            {steamchart}
-            {c5chart}
-          </VictoryGroup>
-        </VictoryChart>
-        </Box>
+
         <Box w="300px" mx="auto">
-          <VictoryPie
-            colorScale={["tomato", "orange", "gold", "cyan", "navy"]}
-            style={{ labels: { fill: "white" } }}
-            innerRadius={70}
-            labelRadius={95}
-            labels={({ datum }) => `${datum.x}\n 在售${datum.y}`}
-            data={piedata}
-          />
+          <svg viewBox="0 0 400 400">
+            <VictoryPie
+              standalone={false}
+              colorScale={["tomato", "orange", "gold", "cyan", "navy"]}
+              style={{ labels: { fill: "white" } }}
+              innerRadius={70}
+              labelRadius={95}
+              labels={({ datum }) => `${datum.x}\n 在售${datum.y}`}
+              data={piedata}
+            />
+            <VictoryLabel
+              textAnchor="middle"
+              style={{ fontSize: 20 }}
+              x={200}
+              y={200}
+              text="sale!"
+            />
+          </svg>
+        </Box>
+        <Box w="360px" mx="auto">
+          <VictoryChart
+            domain={{
+              y: [
+                parseInt(data.knifes[0].igxe.current_price.substring(1)) * 0.9,
+                parseInt(data.knifes[0].igxe.current_price.substring(1))*1.3,
+              ],
+            }}
+            width={500}
+            height={480}
+          >
+            <VictoryGroup
+              style={{
+                data: { strokeWidth: 1.5, fillOpacity: 0.45 },
+              }}
+            >
+              {igchart}
+              {steamchart}
+              {c5chart}
+            </VictoryGroup>
+          </VictoryChart>
         </Box>
         {steamcharts(data)}
       </>
