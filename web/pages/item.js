@@ -144,7 +144,7 @@ export default function Item() {
   const { data } = useSWR("/api/item?id=" + path, fetcherj);
   const { data: pricetext } = useSWR(
     () =>
-      "http://api.scraperapi.com/?api_key=bd34bcd86583b46c76dc5c9c24c5af26&url=" +
+      "https://api.scraperapi.com/?api_key=bd34bcd86583b46c76dc5c9c24c5af26&url=" +
       data.knifes[0].steam.href.substring(6),
     fetcher
   );
