@@ -1,12 +1,11 @@
 from scrapy import cmdline
 # cmdline.execute("scrapy crawl igxeSpider".split())
 # cmdline.execute("scrapy crawl c5gameSpider".split())
-cmdline.execute("scrapy crawl steamSpider".split())
-
-# import pymongo
-# # #
-# db_client = pymongo.MongoClient('mongodb://root:zuoqiugaoxi@123.57.213.26:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false')
-# db = db_client['knife'].knife
+# cmdline.execute("scrapy crawl steamSpider".split())
+import pymongo
+# #
+db_client = pymongo.MongoClient('mongodb://root:zuoqiugaoxi@123.57.213.26:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false')
+db = db_client['knife'].knife
 # for i in db.find({ 'igxe.href' : '/product/730/8452' } ):
 #     print(i)
 # db.update_one({'_id': '蝴蝶刀（★） | 渐变之色 (崭新出厂)'}, {
@@ -16,6 +15,17 @@ cmdline.execute("scrapy crawl steamSpider".split())
 
 # db.update_one({'_id': '蝴蝶刀（★） | 渐变之色 (崭新出厂)'}, {'$pull': {'steam.prices': {'date': 'aa'}}})
 # db.update_many({}, {'$unset': {'c5game': ''}})
+# db.update_many(
+#     {},
+#     {
+#         '$pull': {'igxe.prices': {'date': '2021-05-27, 8:42:00'}}
+#     }
+# )
+
+db.update_many(
+   {},
+   { '$set': { "steam.prices.0.date" : '2021-05-25, 08:50:00' } }
+)
 
 # db.update_one({'_id': '蝴蝶刀（★） | 渐变之色 (崭新出厂)'}, {'$push': {'steam.prices': {'date': 'aa', 'price': 'bb'}}})
 # db.update_one(
@@ -24,7 +34,7 @@ cmdline.execute("scrapy crawl steamSpider".split())
 #             '$set': {'steam.current_price': 'bb', 'steam.num': 'ee','steam.href': 'cc', 'steam.img': 'dd'}
 #         }
 # )
-# db_client.close()
+db_client.close()
 # db.insert_one( {"_id": "222",
 #     "array": [{
 #         "name": "a",
