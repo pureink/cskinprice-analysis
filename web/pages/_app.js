@@ -5,6 +5,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
       <Head>
+        <title>CSkin</title>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
       </Head>
       <Component {...pageProps} />
