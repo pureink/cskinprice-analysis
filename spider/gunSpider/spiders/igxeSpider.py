@@ -13,7 +13,7 @@ class igxeSpider(scrapy.Spider):
     def parse(self, response):
         item= GunspiderItem()
 
-        date = '2021-05-27, 8:42:00'
+        date = '2021-05-28, 09:25:00'
         datalist = response.css('#center > div > div.box-4 > div > div.dataList > a')
         for knife in datalist:
             name = knife.css('div.name::text').extract()[0]
