@@ -218,7 +218,7 @@ export default function Home() {
                         </Text>
                       </Flex>
                     ) : null}
-                    {item.item.steam ? (
+                    {item.item.steam.href ? (
                       <Flex direction="column" w="40px">
                         <Text lineHeight="1" fontSize="10">
                           steam

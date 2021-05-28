@@ -34,7 +34,7 @@ function randomcolor() {
 export default function Item() {
   const router = useRouter();
   const path = router.query.id;
-  const { data } = useSWR(path?"/api/item?id=" + path:null, fetcherj);
+  const { data } = useSWR(path ? "/api/item?id=" + path : null, fetcherj);
 
   if (!data) {
     return <Loading />;
@@ -92,7 +92,8 @@ export default function Item() {
     for (let i = 0; i < info.steam.prices.length; i++) {
       steamdata.push({
         x: new Date(info.steam.prices[i].date.replace(", ", "T")),
-        y: 0.85 * 6.43 * parseInt(info.steam.prices[i].price.substring(1)),
+        y:
+          0.8 * 0.85 * 6.43 * parseInt(info.steam.prices[i].price.substring(1)),
       });
     }
     steamchart = (
@@ -160,12 +161,29 @@ export default function Item() {
           />
         </svg>
       </Box>
+      <Flex w="240px" mx="auto" direction="row" lineHeight="1">
+        <Flex>
+          <Text fontWeight="bold" color="rgb(138,149,173)">
+            <Box background="rgb(138,149,173)" w="40px" h="10px"></Box>steam
+          </Text>
+        </Flex>
+        <Flex mx="40px">
+          <Text fontWeight="bold" color="rgb(85,103,142)">
+            <Box background="rgb(85,103,142)" w="40px" h="10px"></Box>c5
+          </Text>
+        </Flex>
+        <Flex>
+          <Text fontWeight="bold" color="rgb(63,88,141)">
+            <Box background="rgb(63,88,141)" w="40px" h="10px"></Box>igxe
+          </Text>
+        </Flex>
+      </Flex>
       <Box w="360px" mx="auto">
         <VictoryChart
           domain={{
             y: [
-              parseInt(data.knifes[0].igxe.current_price.substring(1)) * 0.9,
-              parseInt(data.knifes[0].igxe.current_price.substring(1)) * 1.4,
+              parseInt(data.knifes[0].igxe.current_price.substring(1)) * 0.85,
+              parseInt(data.knifes[0].igxe.current_price.substring(1)) * 1.1,
             ],
           }}
           width={500}
@@ -173,7 +191,7 @@ export default function Item() {
         >
           <VictoryGroup
             style={{
-              data: { strokeWidth: 1.5, fillOpacity: 0.45 },
+              data: { strokeWidth: 2, fillOpacity: 0.5 },
             }}
           >
             {igchart}
@@ -185,7 +203,7 @@ export default function Item() {
       {data.knifes[0].steam ? (
         <Steam
           url={
-            "https://api.scraperapi.com/?api_key=bd34bcd86583b46c76dc5c9c24c5af26&url=" +
+            "https://api.scraperapi.com/?api_key=1bc0464cf07c3967eb9a9225c444753d&url=" +
             data.knifes[0].steam.href.substring(6)
           }
         />
