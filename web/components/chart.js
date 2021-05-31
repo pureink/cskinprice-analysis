@@ -9,18 +9,21 @@ import {
   VictoryTooltip,
 } from "victory";
 import { useState } from "react";
-
+function rand(num){
+return (0.92+Math.random()*0.16)*num
+}
 function Chart({ data1 }) {
   const handleClick = (value) => () => {
     fetchData(value);
   };
   var today = new Date();
+  today.setDate(today.getDate() + 60)
   const [zoomDomain, setDomain] = useState({
-    x: [new Date(data1[0][0]), new Date(today.setDate(today.getDate() + 60))],
+    x: [new Date(data1[0][0]), new Date(today)],
   });
   const [predict, setpredict] = useState();
   const fetchData = async (price_json) => {
-    const req = await fetch("https://cskin-py.herokuapp.com/predict", {
+    const req = await fetch("https://cors.1310010428.workers.dev/?https://cskin-py.herokuapp.com/predict", {
       method: "POST",
       body: JSON.stringify(price_json),
     });
@@ -30,7 +33,7 @@ function Chart({ data1 }) {
     for (let i = 0; i < data.length; i++) {
       output.push({
         date: today,
-        price: data[i],
+        price: rand(data[i]),
       });
       today = today.setDate(today.getDate() + 1);
       today = new Date(today);
