@@ -162,6 +162,19 @@ export default function Item() {
           />
         </svg>
       </Box>
+      <Box
+          w="360px"
+          color="blue.200"
+          className="pattern-checks-md green h-5"
+          p="2"
+          mx="auto"
+          mb="20px"
+        >
+          {" "}
+          <Text color="blue.600" fontWeight="bold" fontSize="20px">
+            Steam数据
+          </Text>
+        </Box>
       <Flex w="240px" mx="auto" direction="row" lineHeight="1">
         <Flex>
           <Box fontWeight="bold" color="rgb(138,149,173)">
@@ -204,7 +217,7 @@ export default function Item() {
       {data.knifes[0].steam ? (
         <Steam
           url={
-            "https://api.scraperapi.com/?api_key=1bc0464cf07c3967eb9a9225c444753d&url=" +
+            "https://api.scraperapi.com/?api_key=e743cda919a4bab35589c314a818ae46&url=" +
             data.knifes[0].steam.href.substring(6)
           }
         />

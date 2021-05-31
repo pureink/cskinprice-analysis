@@ -84,15 +84,18 @@ export default function Steam({ url }) {
     return (
       <>
         <Box
-        h="40px"
-          color="rgb(225,244,222)"
+          w="360px"
+          color="red.200"
           className="pattern-checks-md green h-5"
           p="2"
-          mx="20px"
-        ></Box>
-        <Text color="blue.800" fontWeight="bold" fontSize="20px">
-          Steam数据
-        </Text>
+          mx="auto"
+        >
+          {" "}
+          <Text color="red.600" fontWeight="bold" fontSize="20px">
+            Steam数据
+          </Text>
+        </Box>
+
         <Box maxW="480px" mx="auto">
           <Tabs px="5" my="4" mx="auto" defaultIndex={1} align="end">
             <TabPanels>
@@ -137,9 +140,18 @@ export default function Steam({ url }) {
             </TabList>
           </Tabs>
         </Box>
-        <Text m="4" fontSize="20px">
-          steam历史价格总览
-        </Text>
+        <Box
+          w="360px"
+          color="orange.200"
+          className="pattern-checks-md h-5"
+          p="2"
+          mx="auto"
+        >
+          {" "}
+          <Text color="orange.500" fontWeight="bold" fontSize="20px">
+            Steam历史价格总览
+          </Text>
+        </Box>
 
         <Chart data1={price} />
       </>
