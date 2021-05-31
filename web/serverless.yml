@@ -1,6 +1,6 @@
 component: nextjs
-name: nextjsDemo
-app: appDemo
+name: nextjs
+app: CSkin1344
 
 inputs:
   src:
@@ -8,8 +8,14 @@ inputs:
     hook: npm run build
   region: ap-beijing
   runtime: Nodejs12.16
-  apigatewayConf:
-    protocols:
-      - http
-      - https
-    environment: release
+apigatewayConf:
+    # 自定义域名相关配置
+    customDomains:
+        - domain: t.cskin.tech
+          certificateId: n0Z7dcDU # 证书 ID
+          # 这里将 API 网关的 release 环境映射到根路径
+          pathMappingSet:
+               - path: /
+                 environment: release
+          protocols:
+               - https

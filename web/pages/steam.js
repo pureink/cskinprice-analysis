@@ -38,11 +38,10 @@ function getdata(arr, time) {
   let o = [];
   for (let i = 0; i < array.length - 1; i++) {
     o.push({
-      x: moment(array[i][0]).format("YYYY/MM/DD"),
+      x: moment(array[i][0]).format("YYYY-MM-DD"),
       y: array[i][2],
     });
   }
-
   var newObj = {};
   for (i in o) {
     var item = o[i];
@@ -63,8 +62,10 @@ function getdata(arr, time) {
   return result;
 }
 export default function Steam({ url }) {
+  if (!url)
+    url =
+      "https://api.scraperapi.com/?api_key=1bc0464cf07c3967eb9a9225c444753d&url=https://steamcommunity.com/market/listings/730/%E2%98%85%20Bayonet%20%7C%20Fade%20%28Factory%20New%29";
   const { data: odata } = useSWR(url, fetcher);
-
   if (!odata) {
     return (
       <Stack w="80%" mx="auto" my="150px">
@@ -82,7 +83,16 @@ export default function Steam({ url }) {
     }
     return (
       <>
-        <Text fontSize="20px">近期交易次数</Text>
+        <Box
+        h="40px"
+          color="rgb(225,244,222)"
+          className="pattern-checks-md green h-5"
+          p="2"
+          mx="20px"
+        ></Box>
+        <Text color="blue.800" fontWeight="bold" fontSize="20px">
+          Steam数据
+        </Text>
         <Box maxW="480px" mx="auto">
           <Tabs px="5" my="4" mx="auto" defaultIndex={1} align="end">
             <TabPanels>
@@ -130,9 +140,8 @@ export default function Steam({ url }) {
         <Text m="4" fontSize="20px">
           steam历史价格总览
         </Text>
-        <Box className="chart" w="80%" maxW="480px" mx="auto">
-          <Chart data1={price} />
-        </Box>
+
+        <Chart data1={price} />
       </>
     );
   }

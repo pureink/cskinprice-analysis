@@ -3,8 +3,9 @@ const fetcherj = (url) => fetch(url).then((res) => res.json());
 import { useRouter } from "next/router";
 import { Box, Text, Image, Flex } from "@chakra-ui/react";
 import useSWR from "swr";
-import moment from "moment";
+import Head from "next/head";
 import Steam from "./steam";
+import Footer from "../components/footer"
 import Loading from "../components/loading";
 import {
   VictoryChart,
@@ -107,7 +108,7 @@ export default function Item() {
   }
   return (
     <>
-      <Breadcrumb mx="10" mt="10">
+      <Breadcrumb mx="10"pt="40px">
         <BreadcrumbItem>
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
@@ -163,19 +164,19 @@ export default function Item() {
       </Box>
       <Flex w="240px" mx="auto" direction="row" lineHeight="1">
         <Flex>
-          <Text fontWeight="bold" color="rgb(138,149,173)">
+          <Box fontWeight="bold" color="rgb(138,149,173)">
             <Box background="rgb(138,149,173)" w="40px" h="10px"></Box>steam
-          </Text>
+          </Box>
         </Flex>
         <Flex mx="40px">
-          <Text fontWeight="bold" color="rgb(85,103,142)">
+          <Box fontWeight="bold" color="rgb(85,103,142)">
             <Box background="rgb(85,103,142)" w="40px" h="10px"></Box>c5
-          </Text>
+          </Box>
         </Flex>
         <Flex>
-          <Text fontWeight="bold" color="rgb(63,88,141)">
+          <Box fontWeight="bold" color="rgb(63,88,141)">
             <Box background="rgb(63,88,141)" w="40px" h="10px"></Box>igxe
-          </Text>
+          </Box>
         </Flex>
       </Flex>
       <Box w="360px" mx="auto">
@@ -208,6 +209,7 @@ export default function Item() {
           }
         />
       ) : null}
+      <Footer/>
     </>
   );
 }

@@ -3,6 +3,7 @@ import { Input, Text } from "@chakra-ui/react";
 import Fuse from "fuse.js";
 import { Animated } from "react-animated-css";
 import { useState } from "react";
+import Footer from '../components/footer'
 import {
   VictoryChart,
   VictoryBar,
@@ -63,6 +64,7 @@ export default function Home() {
           <Text fontSize="20px">Loading data...</Text>
         <SkeletonText mt="6" noOfLines={6} spacing="4" />
         </Stack>
+        <Footer/>
       </>
     );
   }
@@ -243,6 +245,7 @@ export default function Home() {
           </Flex>
         </div>
       </Box>
+      <Footer/>
     </>
   );
 }
