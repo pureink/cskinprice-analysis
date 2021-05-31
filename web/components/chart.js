@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button ,Tooltip} from "@chakra-ui/react";
 import {
   VictoryChart,
   VictoryZoomContainer,
@@ -17,7 +17,7 @@ function Chart({ data1 }) {
     fetchData(value);
   };
   var today = new Date();
-  today.setDate(today.getDate() + 60)
+  today.setDate(today.getDate() + 100)
   const [zoomDomain, setDomain] = useState({
     x: [new Date(data1[0][0]), new Date(today)],
   });
@@ -66,9 +66,11 @@ function Chart({ data1 }) {
   }
   return (
     <>
+    <Tooltip label="预计等待10s..." aria-label="A tooltip" placement="top">
       <Button m="2" className="pattern-checks-md"onClick={handleClick(finalResult)}>
         predict
       </Button>
+      </Tooltip>
       <Box className="chart" w="80%" maxW="480px" mx="auto">
         <VictoryChart
           width={600}
