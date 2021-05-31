@@ -17,7 +17,7 @@ class steamSpider(scrapy.Spider):
 
     def parse(self, response):
         item = GunspiderItem()
-        date = '2021-05-28, 09:25:00'
+        date = '2021-05-30, 22:25:00'
 
         html = response.text
         html = html.replace('\\', '')

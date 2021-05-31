@@ -14,7 +14,7 @@ class c5gameSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        date = '2021-05-28, 09:25:00'
+        date = '2021-05-30, 22:25:00'
         item= GunspiderItem()
         datalist = response.css('#yw0 > div.tab-pane.active > ul > li')
         for knife in datalist:
