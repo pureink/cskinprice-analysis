@@ -6,10 +6,15 @@ function MyApp({ Component, pageProps }) {
     <ChakraProvider>
       <Head>
         <title>CSkin</title>
+        <meta
+          name="viewport"
+          content="width=1500, user-scalable=yes"
+          data-react-helmet="true"
+        ></meta>
         <link href="https://unpkg.com/pattern.css" rel="stylesheet" />
         <link
           rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
+          href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.min.css"
         />
       </Head>
       <Component {...pageProps} />

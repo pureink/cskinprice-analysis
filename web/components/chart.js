@@ -23,7 +23,7 @@ function Chart({ data1 }) {
   });
   const [predict, setpredict] = useState();
   const fetchData = async (price_json) => {
-    const req = await fetch("https://cors.1310010428.workers.dev/?https://cskin-py.herokuapp.com/predict", {
+    const req = await fetch("https://cors.1nk.workers.dev/?https://cskin-py.herokuapp.com/predict", {
       method: "POST",
       body: JSON.stringify(price_json),
     });

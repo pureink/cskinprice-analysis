@@ -1,5 +1,5 @@
 import { Box, Flex, Image, Link } from "@chakra-ui/react";
-import { Input, Text } from "@chakra-ui/react";
+import { Input, Text,Button } from "@chakra-ui/react";
 import Fuse from "fuse.js";
 import { Animated } from "react-animated-css";
 import { useState } from "react";
@@ -40,6 +40,7 @@ function gd(o) {
 }
 export default function Home() {
   const [searchValue, setSearchValue] = useState("");
+  const [v,setv]=useState("")
   const { data: items_origin } = useSWR("/api/items");
   let searchcontent;
   if (!items_origin) {
@@ -117,6 +118,9 @@ export default function Home() {
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
+      <Text fontSize="18px">player analysis</Text>
+      <Input w="160px" value={v} onChange={e=>setv(e.target.value)}></Input>
+        <a href={`/player/${v}`}><Button>search</Button></a>
       <Text textAlign="center" my="10" fontSize="20px">
         挂刀排行榜
       </Text>
