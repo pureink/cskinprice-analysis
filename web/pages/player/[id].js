@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
+import Head from "next/head";
 import { Box, Text, Image, Flex, SimpleGrid, GridItem } from "@chakra-ui/react";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 import useSWR from "swr";
@@ -18,8 +19,14 @@ export default function player() {
       : null,
     fetcher
   );
-  if (data && !data.statusCode) {
+  const { data: avas } = useSWR(
+    "https://pvp.wanmei.com/ranking/list-by-season?season=S4&page_size=4&page=2000",
+    fetcher
+  );
+  if (data && !data.statusCode && avas) {
     //雷达图
+    const avatars = avas.data.list;
+    console.log(avatars);
     const option2 = {
       title: {
         text: "",
@@ -111,6 +118,9 @@ export default function player() {
         {/* <Text fontSize="20px" fontWeight="bold" m="4">
           CSkin
         </Text> */}
+        <Head>
+          <meta name="referrer" content="no-referrer" />
+        </Head>
         <Box w="1440px" h="100vh" mx="auto" position="absolute" z-index="-999">
           <video autoPlay loop muted width="100%">
             <source src="/csgo.mp4" type="video/mp4"></source>
@@ -330,11 +340,9 @@ export default function player() {
           <Flex justify="space-between">
             <Flex direction="column">
               <Image mb="20px" w="280px" h="60px" src="/images/wm.png"></Image>
-              <Fade>
-                <Box w="500px" boxShadow="2xl" bg="white" borderRadius="5px">
-                  <Weapons data={data.datawm.hotWeapons} />
-                </Box>
-              </Fade>
+              <Box w="500px" boxShadow="2xl" bg="white" borderRadius="5px">
+                <Weapons data={data.datawm.hotWeapons} />
+              </Box>
             </Flex>
             <Box mx="20px" my="auto">
               {" "}
@@ -344,6 +352,15 @@ export default function player() {
               />
             </Box>
 
+            <Flex wrap="wrap" w="300px">
+              <Text fontSize="20px">推荐队友</Text>
+              {avatars.map((l) => (
+                <Box>
+                  <a href={"https://steamcommunity.com/profiles/"+l.user_id}><Image borderRadius="5px" w="100px" src={l.avatar}/></a>
+                  <Text color="white">{l.nickname}</Text>
+                </Box>
+              ))}
+            </Flex>
             <Image src="/images/oldk.png" w="150px" h="150px"></Image>
             <Box>
               <Image
